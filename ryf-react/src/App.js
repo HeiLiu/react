@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios'
 //对react ui阿里的antd 部分引用
-import { Table, Pagination, Input, Row, Button, Modal, Form } from 'antd';
+import { Table, Pagination, Input, Row, Button, Modal, Form, message } from 'antd';
 import 'antd/dist/antd.css';
 const { Search } = Input;
 const FormItem = Form.Item;
@@ -14,8 +15,8 @@ class App extends Component {
     key: 'key',
   },{
     title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'username',
+    key: 'username',
   }, {
     title: '年龄',
     dataIndex: 'age',
@@ -42,12 +43,12 @@ class App extends Component {
     action: '',
     users: [{
       key: '1',
-      name: '胡彦斌',
+      username: '胡彦斌',
       age: 32,
       address: '西湖区湖底公园1号'
     }, {
       key: '2',
-      name: '胡彦祖',
+      username: '胡彦祖',
       age: 42,
       address: '西湖区湖底公园1号'
     }]
@@ -68,6 +69,13 @@ class App extends Component {
       }
     })
   }
+  searchUser (event) {
+    console.log(event.target.value)
+    axios.get('http://localhost:3006/users')
+    .then(data => {
+      console.log(data)
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -84,7 +92,7 @@ class App extends Component {
     return (
       <div className="App">
         <Row>
-          <Search style={{ width: 300 }} />
+          <Search style={{ width: 300 }} onChange= { this.searchUser.bind(this)}/>
           <Button type="primary" style={{ marginLeft: 20 }}
             onClick={() => this.modal('add')}>添加用户
           </Button>
@@ -98,7 +106,7 @@ class App extends Component {
           <Form>
             <FormItem label="用户" {...formItemLayout}>
               {
-                getFieldDecorator('name', {
+                getFieldDecorator('username', {
                   rules: [{required: true, message: 'Please input your username'}]
                 })(<Input placeholder="UserName"></Input>)
               }
@@ -133,10 +141,22 @@ class App extends Component {
           key += 1 
           const user = {key, ...values}
           this.state.users.push(user)
-          this.setState({
-            visible: false,
-            action:''
-          })
+          
+          let data = {
+            username: values.username,
+            age: values.age,
+            address: values.address
+          }
+          console.log(data)
+          axios.post('http://localhost:3006/user', data)
+            .then( msg => {
+              console.log(msg)
+              this.setState({
+                visible: false,
+                action:''
+              })
+              message.success('添加成功')
+            })
         }
       })
     }else {
@@ -171,7 +191,7 @@ class App extends Component {
       this.props.form.resetFields()
       if(type === 'add') return
       this.props.form.setFieldsValue({
-        name: row.name,
+        username: row.username,
         age: row.age,
         address: row.address
       })
