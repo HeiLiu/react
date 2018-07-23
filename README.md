@@ -34,3 +34,13 @@
 ```  
 
 ### 事件
+
+
+
+### 依赖  
+
+yarn add lodash lokijs -D  
+
+lodash 工具库
+lokijs 内存数据库  
+moment JavaScript 日期处理类库

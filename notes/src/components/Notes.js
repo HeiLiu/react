@@ -48,7 +48,7 @@ class Notes extends Component {
           text: ''
         })
         db.saveDatabase()
-        this.setState((preState) => {
+        this.setState((preState) => { this.state
           const _entities = preState.entities
           _entities.unshift(entity);
           return {
