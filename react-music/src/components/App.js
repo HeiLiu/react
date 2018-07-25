@@ -39,7 +39,7 @@ class App extends Component {
             <Route path="/recommend" component={Recommend}/>
             <Route path="/ranking" component={Ranking}/>
             <Route path="/search" component={Search}/>
-            <Redirect from='/' to='recommand'/>
+            <Redirect from='/' to='recommend'/>
             <Route component={Recommend}/>
           </Switch>
         </div>
