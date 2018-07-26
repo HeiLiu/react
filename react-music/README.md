@@ -22,3 +22,6 @@
 
 ## common 通用模块 组件
 
+yarn add redux react-redux  跨组件 
+
+containers 为redux服务
