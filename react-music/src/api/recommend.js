@@ -21,7 +21,7 @@ export function getAlbumInfo(albumMid) {
     platform: 'yqq',
     needNewCode: 0 
   })
-  return jsonp(URL.getAlbumInfo, data, OPTION)
+  return jsonp(URL.albumInfo, data, OPTION)
 }
 
 export function getNewAlbum() {

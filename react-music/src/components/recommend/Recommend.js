@@ -6,6 +6,9 @@ import "swiper/dist/css/swiper.css"
 import './recommend.styl'
 import { PARAM, CODE_SUCCESS } from '../../api/config';
 import Scroll from '@/common/scroll/Scroll'
+import Loading from '@/common/loading/Loading'
+import Album from '@/containers/Album'
+import { Route } from 'react-router-dom'
 
 class Recommend extends Component {
   constructor(props) {
@@ -13,7 +16,8 @@ class Recommend extends Component {
     this.state = {
       sliderList: [],
       newAlbums: [],
-      refreshScroll: false
+      refreshScroll: false,
+      loading: true
     }
   }
 
@@ -49,7 +53,8 @@ class Recommend extends Component {
           })
           console.log(albumList)
           this.setState({
-            newAlbums: albumList
+            newAlbums: albumList,
+            loading: false
           }, () => {
             this.setState({ refreshScroll: true })
           })
@@ -64,11 +69,19 @@ class Recommend extends Component {
       window.location.href = linkUrl
     }
   }
+  toAlbumDetail(url) {
+    return () => {
+      this.props.history.push({
+        pathname: url
+      })
+    }
+  }
   render() {
+    const { match }= this.props;// 当前组件的url 也可以通过props获取  => $route
     const albums = this.state.newAlbums.map(item => {
       const album = AlbumModel.createAlbumByList(item)
       return (
-        <div className="album-wrapper" key={album.mId}>
+        <div className="album-wrapper" key={album.mId} onClick={this.toAlbumDetail(`${match.url + '/' + album.mId }`)}>
           <div className="left">
             <img src={album.img} alt={album.name} width="100%" height="100%" />
           </div>
@@ -114,7 +127,9 @@ class Recommend extends Component {
             </div>
           </div>
         </Scroll>
-
+        <Loading title="加载中..." show={this.state.loading}/>
+        {/*子路由 动态路由 match.url */}
+        <Route path={`${match.url + '/:id'}`} component={Album}/>
       </div>
     )
   }
