@@ -1,0 +1,19 @@
+{
+  "name": "wumi_app",
+  "version": "1.0.0",
+  "description": "内置了react react-router  \r 以约定代替，简化代码 pages/ 目录下组件即路由",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react-sticky": "^6.0.3",
+    "umi": "^1.3.17"
+  },
+  "devDependencies": {
+    "umi-plugin-datahub": "^0.1.2"
+  }
+}
