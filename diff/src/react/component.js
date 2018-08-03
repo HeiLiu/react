@@ -1,4 +1,4 @@
-import renderComponent from '../react-dom/render.js'
+import { renderComponent } from '../react-dom/render.js'
 class Component {
   constructor(props = {}) {
     this.isReactComponent = true

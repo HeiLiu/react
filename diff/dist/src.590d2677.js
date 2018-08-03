@@ -165,100 +165,106 @@ function setAttribute(dom, name, value) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.renderComponent = renderComponent;
 exports.render = render;
 
-var _dom = require('./dom');
+var _dom = require('./dom.js');
 
-var _component = require('../react/component');
+var _component = require('../react/component.js');
 
 var _component2 = _interopRequireDefault(_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * 将虚拟dom 变真实dom
- * @param {*} vnode 将虚拟dom
- * @return 返回dom
+ * 将虚拟DOM 变真实DOM
+ * @params vnode 虚拟DOM, 
+ * @return 返回DOM
  */
-function _render(vnode) {
-    //  console.log(vnode);
-    // 1. 使用递归方法 将结点转成dom, 子节点递归，出口就是文本节点
-    // 2. 节点类型 三种：
-    //      文本节点 createTextNode
-    //      标签节点 createElement attr children 设置(递归_render)
-    // 3. Component render(render jsx)
-    //      render
-    if (vnode === undefined || vnode === null || typeof vnode === 'boolean') {
-        vnode = '';
-    }
-    if (typeof vnode === 'number') {
-        vnode = String(vnode);
-    }
-    if (typeof vnode === 'string') {
-        var textNode = document.createTextNode(vnode);
-        return textNode;
-    }
-    // <Counter/> 不是正常的标签，vnode, tag = function Counter(){}
-    if (typeof vnode.tag === 'function') {
-        // console.log(vnode);
-        var component = createComponent(vnode.tag, vnode.attrs);
-        setComponentProps(component, vnode.attrs);
-        return component.base;
-    }
-    var dom = document.createElement(vnode.tag);
-    if (vnode.attrs) {
-        Object.keys(vnode.attrs).forEach(function (key) {
-            var value = vnode.attrs[key];
-            (0, _dom.setAttribute)(dom, key, value);
-        });
-    }
-    if (vnode.children) {
-        vnode.children.forEach(function (child) {
-            return render(child, dom);
-        });
-    }
-    return dom;
-}
-function createComponent(component, props) {
-    var inst = void 0;
-    if (component.prototype && component.prototype.render) {
-        inst = new component(props);
-    } else {
-        inst = new _component2.default(props);
-        inst.constructor = component;
-        inst.render = function () {
-            return this.constructor(props);
-        };
-    }
-    return inst;
-}
-function setComponentProps(component, props) {
-    component.props = props;
-    renderComponent(component);
-}
-// function replaceChild () {
 
-// }
-// 将 component里的jsx转为DOM 还会在setState的时候调用
+function _render(vnode) {
+  // console.log(vnode);
+  // return document.createTextNode('render');
+  // 1. 递归 将结点转成dom ,子结点递归，出口就是文本结点
+  // 2. 节点类型 三种： 
+  // 文本结点 return createTextNode()
+  // 标签结点 createElement attr chilren设置（递归_render）
+  // 3. Component render(return jsx)
+  // render()
+  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
+
+  if (typeof vnode === 'number') {
+    console.log(vnode);
+    vnode = String(vnode);
+  }
+
+  if (typeof vnode === 'string') {
+    var textNode = document.createTextNode(vnode);
+    return textNode;
+  }
+  // <Counter />  不是正常标签, vnode.tag= function Counter(){}
+  if (typeof vnode.tag === 'function') {
+    // console.log(vnode);
+    // return document.createTextNode('component');
+    var component = createComponent(vnode.tag, vnode.attrs);
+    setComponentProps(component, vnode.attrs);
+    return component.base;
+  }
+
+  var dom = document.createElement(vnode.tag);
+  if (vnode.attrs) {
+    Object.keys(vnode.attrs).forEach(function (key) {
+      var value = vnode.attrs[key];
+      (0, _dom.setAttribute)(dom, key, value);
+    });
+  }
+
+  if (vnode.children) {
+    vnode.children.forEach(function (child) {
+      return render(child, dom);
+    });
+  }
+
+  return dom;
+}
+
+function setComponentProps(component, props) {
+  component.props = props;
+  renderComponent(component);
+}
+
+// 将component里的jsx转为DOM 他还会在setState时调用 
 function renderComponent(component) {
-    var base = void 0; // jsx => DOM
-    var renderer = component.render();
-    base = _render(renderer);
-    if (component.base && component.base.parentNode) {
-        component.base.parentNode.replaceChild(base, component.base);
-    }
-    component.base = base;
-    base._component = component;
-    // 
+  var base = void 0; //jsx=> DOM
+  var renderer = component.render();
+  base = _render(renderer);
+  // 非第一次渲染组件
+  if (component.base && component.base.parentNode) {
+    component.base.parentNode.replaceChild(base, component.base);
+  }
+  component.base = base;
+  base._component = component;
+}
+
+function createComponent(component, props) {
+  var inst = void 0;
+  if (component.prototype && component.prototype.render) {
+    inst = new component(props);
+  } else {
+    inst = new _component2.default(props);
+    inst.constructor = component;
+    inst.render = function () {
+      return this.constructor(props);
+    };
+  }
+  return inst;
 }
 function render(vnode, container) {
-    // console.log(vnode, container)
-    return container.appendChild(_render(vnode));
+  return container.appendChild(_render(vnode));
 }
-},{"./dom":"src\\react-dom\\dom.js","../react/component":"src\\react\\component.js"}],"src\\react\\component.js":[function(require,module,exports) {
+},{"./dom.js":"src\\react-dom\\dom.js","../react/component.js":"src\\react\\component.js"}],"src\\react\\component.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -268,10 +274,6 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _render = require('../react-dom/render.js');
-
-var _render2 = _interopRequireDefault(_render);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -294,7 +296,7 @@ var Component = function () {
       // 将新的对象里面的内容复制给state
       Object.assign(this.state, stateChange);
       // 进行 DOM 更新
-      (0, _render2.default)(this);
+      (0, _render.renderComponent)(this);
     }
   }]);
 
@@ -375,7 +377,7 @@ var Counter = function (_React$Component) {
     value: function onClick() {
       // console.log('123')
       this.setState({
-        num: this.state.num
+        num: this.state.num + 1
       });
     }
   }, {

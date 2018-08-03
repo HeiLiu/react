@@ -11,7 +11,7 @@ class Counter extends React.Component {
   onClick() {
     // console.log('123')
     this.setState({
-      num: this.state.num
+      num: this.state.num + 1
     })
   }
 
