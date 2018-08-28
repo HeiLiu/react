@@ -32,7 +32,13 @@ class TodoList extends Component {
 
   handleUlClick = (e) => {
     let target = e.target
-    console.log(target.nodeName.toLowerCase(), target.getAttribute('data-index'))
+    let index = target.getAttribute('data-index')
+    console.log(target.nodeName.toLowerCase())
+    const _list = this.state.list
+    _list.splice(index, 1)
+    this.setState({
+      list: _list
+    })
   }
 
 
