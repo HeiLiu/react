@@ -12,19 +12,6 @@ class Notes extends Component {
   getInitialData () {
     loadCollection ('notes')
       .then(collection => {
-        // console.log(collection)
-        // collection.insert ([
-        //   {
-        //     text: 'PHP是世界上最好的语言'
-        //   },
-        //   {
-        //     text: 'Nodejs了解一下'
-        //   },
-        //   {
-        //     text: 'React: Vue 算个JB'
-        //   }
-        // ])
-        // db.saveDatabase()
         const entities = collection.chain()
           .find()
           .simplesort('$loki', 'isdesc')
@@ -48,7 +35,7 @@ class Notes extends Component {
           text: ''
         })
         db.saveDatabase()
-        this.setState((preState) => { this.state
+        this.setState((preState) => {
           const _entities = preState.entities
           _entities.unshift(entity);
           return {
