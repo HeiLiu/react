@@ -3,4 +3,4 @@
 
   ### 预览效果：  
 
-  [note_app预览](https://github.com/HeiLiu/react/blob/master/notes/public/preview.png)
+  ![note_app预览](https://github.com/HeiLiu/react/blob/master/notes/public/preview.png)
