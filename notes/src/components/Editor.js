@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Editor extends Component {
   state = {
     entity: this.props.entity,
-    body: this.props.entity.body,
+    text: this.props.entity.text,
     updateEntity: this.props.updateEntity
   }
   render() {
@@ -14,7 +14,7 @@ class Editor extends Component {
            cols="30"
             rows="5"
             placeholder="要做点什么笔记呢^_^"
-            defaultValue={this.state.body}
+            defaultValue={this.state.text}
             onInput={event => this.state.updateEntity(event)}/>
         </div>
       </div>
