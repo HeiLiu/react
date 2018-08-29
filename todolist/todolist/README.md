@@ -36,4 +36,13 @@ react只是操作组件所挂载的那个节点中的DOM
 react 是一个视图层的框架， 只是解决数据和页面渲染的关系
 配合数据层的框架 redux 、flux 
 
-## 函数式编程
+## 函数式编程  
+
+## Props state render()  
+
+render 将页面渲染出来， 在组件加载的时候会调用一次进行渲染  
+当父组件的render被重新执行的时候， 子组件的render函数也会被重新执行  
+当组件的 State Props 内容发生改变的时候， render方法就会重新执行  
+
+## 虚拟DOM  
+JSX 通过更底层的React.createElement方法 => VNode ReactDOM.reader(vNode, container) => 真实的DOM
