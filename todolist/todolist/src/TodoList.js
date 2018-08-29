@@ -12,11 +12,19 @@ class TodoList extends Component {
       inputValue: '',
       list: []
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleItemDelete = this.handleItemDelete.bind(this)
   }
   handleInputChange(e) {
-    this.setState({
-      inputValue: e.target.value
-    })
+    let _value = e.target.value
+    this.setState(() => ({
+      // 写成函数 变成了异步的setState
+      inputValue: _value
+    }))
+    // this.setState({
+    //   inputValue: e.target.value
+    // })
   }
   // 点击提交按钮添加到list
   handleClick() {
@@ -26,11 +34,14 @@ class TodoList extends Component {
       return
     } else {
       const _list = this.state.list
-      this.setState({
-        // 将最近插入的放在前面
-        list: [_value, ..._list],
-        inputValue: ''
-      })
+      this.setState((preState) => ({
+        list: [_value, ...preState.list]
+      }))
+      // this.setState({
+      //   // 将最近插入的放在前面
+      //   list: [_value, ..._list],
+      //   inputValue: ''
+      // })
     }
 
   }
@@ -47,13 +58,29 @@ class TodoList extends Component {
   }
 
   handleItemDelete(index) {
-    const _list = this.state.list
-    _list.splice(index, 1)
-    this.setState({
-      list: _list
+    // const _list = this.state.list
+    // _list.splice(index, 1)
+    // this.setState({
+    //   list: _list
+    // })
+    this.setState((preState) => {
+      const list = [...preState.list]
+      list.splice(index, 1)
+      return { list }
     })
   }
-
+  getTodoItem() {
+    return this.state.list.map((item, index) => {
+      return (
+          <TodoItem
+            key={index}
+            content={item}
+            index={index}
+            deleteItem={this.handleItemDelete}
+          />
+      )
+    })
+  }
   render() {
     return (
       <Fragment>
@@ -64,25 +91,17 @@ class TodoList extends Component {
             className="input"
             type="text"
             value={this.state.inputValue}
-            onChange={this.handleInputChange.bind(this)} />
-          <button onClick={this.handleClick.bind(this)}>提交</button>
+            onChange={this.handleInputChange} />
+          <button onClick={this.handleClick}>提交</button>
         </div>
         {
           this.state.list.length ? <span>总共 {this.state.list.length} 条</span> : <span>暂时没有内容</span>
         }
-        {/* <ul onClick={this.handleUlClick}> */}
+        <ul>
           {
-            this.state.list.map((item, index) => {
-              return <div> <TodoItem 
-                                key={index}
-                                content={item}
-                                index={index}
-                                deleteItem = {this.handleItemDelete.bind(this)}
-                            /> 
-                     </div>
-            })
+            this.getTodoItem()
           }
-        {/* </ul> */}
+        </ul>
 
       </Fragment>
     );
