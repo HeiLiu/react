@@ -12,6 +12,18 @@ class TodoItem extends Component {
     deleteItem(index)
   }
   
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.content !== this.props.content) {
+      return true
+    }
+    return false
+  }
+  // 进行数据请求 放在componentDidMount中最安全最合适
+  componentDidMount() {
+
+  }
+
   render() {
     const { content,index } =  this.props 
     return (

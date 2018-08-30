@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 // 使用fragment在渲染的时候最外层就不会多加一层 div
 import TodoItem from './TodoItem'
+import axios from 'axios'
 import './style.css'
 
 
@@ -72,8 +73,10 @@ class TodoList extends Component {
   getTodoItem() {
     return this.state.list.map((item, index) => {
       return (
+        // key值使用一个不容易变的值,这里尽量不要用index作key， 
+        // 利于底层diff算法的节点-key映射关联，提高虚拟DOM比对的性能
           <TodoItem
-            key={index}
+            key={item}
             content={item}
             index={index}
             deleteItem={this.handleItemDelete}
