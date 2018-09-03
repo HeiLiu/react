@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem'
 import axios from 'axios'
 import './style.css'
+import { WSAEREFUSED } from 'constants';
 
 
 class TodoList extends Component {
@@ -16,6 +17,60 @@ class TodoList extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleItemDelete = this.handleItemDelete.bind(this)
+  }
+ componentDidMount () {
+   axios.get('https://easy-mock.com/mock/5adf039603701d27fce72de0/example/api/data')
+   .then(res => {
+     console.log(res.data)
+    //  将请求过来的数据给state进行初始化页面
+     this.setState( () => ({
+      //  将数据打散再赋值， 可以避免一些修改res中的数据以后的不可预知的错误
+       list: [...res.data]
+     }) )
+   })
+   .catch(() => {
+      alert('error')
+  })
+ }
+
+  getTodoItem() {
+    return this.state.list.map((item, index) => {
+      return (
+        // key值使用一个不容易变的值,这里尽量不要用index作key， 
+        // 利于底层diff算法的节点-key映射关联，提高虚拟DOM比对的性能
+          <TodoItem
+            key={item}
+            content={item}
+            index={index}
+            deleteItem={this.handleItemDelete}
+          />
+      )
+    })
+  }
+  render() {
+    return (
+      <Fragment>
+        <div>
+          <label htmlFor="insertArea">输入内容^_^ </label>
+          <input
+            id="insertArea"
+            className="input"
+            type="text"
+            value={this.state.inputValue}
+            onChange={this.handleInputChange} />
+          <button onClick={this.handleClick}>提交</button>
+        </div>
+        {
+          this.state.list.length ? <span>总共 {this.state.list.length} 条</span> : <span>暂时没有内容</span>
+        }
+        <ul>
+          {
+            this.getTodoItem()
+          }
+        </ul>
+
+      </Fragment>
+    );
   }
   handleInputChange(e) {
     let _value = e.target.value
@@ -69,45 +124,6 @@ class TodoList extends Component {
       list.splice(index, 1)
       return { list }
     })
-  }
-  getTodoItem() {
-    return this.state.list.map((item, index) => {
-      return (
-        // key值使用一个不容易变的值,这里尽量不要用index作key， 
-        // 利于底层diff算法的节点-key映射关联，提高虚拟DOM比对的性能
-          <TodoItem
-            key={item}
-            content={item}
-            index={index}
-            deleteItem={this.handleItemDelete}
-          />
-      )
-    })
-  }
-  render() {
-    return (
-      <Fragment>
-        <div>
-          <label htmlFor="insertArea">输入内容^_^ </label>
-          <input
-            id="insertArea"
-            className="input"
-            type="text"
-            value={this.state.inputValue}
-            onChange={this.handleInputChange} />
-          <button onClick={this.handleClick}>提交</button>
-        </div>
-        {
-          this.state.list.length ? <span>总共 {this.state.list.length} 条</span> : <span>暂时没有内容</span>
-        }
-        <ul>
-          {
-            this.getTodoItem()
-          }
-        </ul>
-
-      </Fragment>
-    );
   }
 }
 
