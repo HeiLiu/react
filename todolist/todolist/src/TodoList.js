@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 // 使用fragment在渲染的时候最外层就不会多加一层 div
+import { CSSTransition } from 'react-transition-group'
+import { Input } from 'antd'
 import TodoItem from './TodoItem'
 import axios from 'axios'
+import 'antd/dist/antd.css'
 import './style.css'
-import { WSAEREFUSED } from 'constants';
 
 
 class TodoList extends Component {
@@ -52,12 +54,15 @@ class TodoList extends Component {
       <Fragment>
         <div>
           <label htmlFor="insertArea">输入内容^_^ </label>
-          <input
+          <Input
             id="insertArea"
             className="input"
             type="text"
+            placeholder='Todo Item'
             value={this.state.inputValue}
-            onChange={this.handleInputChange} />
+            onChange={this.handleInputChange}
+            style={{width: 300}}
+            />
           <button onClick={this.handleClick}>提交</button>
         </div>
         {
