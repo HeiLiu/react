@@ -1,0 +1,58 @@
+.component {
+  display: inline-block;
+  width: 220px;
+  height: 92px;
+  border: 1px solid #eee;
+  display: flex;
+  background: #333;
+  font-size: 14px;
+  position: relative;
+}
+
+.component::after {
+  display: inline-block;
+  content: "";
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 46px;
+  right: 2px;
+  border-top: 1px solid #A7CD45;
+  border-right: 1px solid #A7CD45;
+  transform: rotate(45deg);
+}
+
+.menuBook {
+  width: 48px;
+  height: 60px;
+  margin: 16px 12px 0 2px;
+  background: #1e1e;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20), 0 1px 2px 0 rgba(0,0,0,0.20);
+  border-radius: 1px;
+  /* opacity: 0.1; */
+}
+.detail {
+  margin: 26px 0;
+  /* color: #1e1e; */
+  text-align: left;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #fff;
+  line-height: 20px;
+}
+.detail:hover {
+  color: #1e1e;
+  cursor: pointer;
+}
+.detail .dishNum {
+  /* opacity: 0.4; */
+  font-family: SFProText-Regular;
+  font-size: 12px;
+  /* color: #fff; */
+  line-height: 16px;
+}
+
+.activeClass {
+  color: #1e1e;
+}
+

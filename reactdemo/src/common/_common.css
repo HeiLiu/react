@@ -1,0 +1,8 @@
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, PingFangSC-Regular, Segoe UI, Roboto, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+  line-height: 1.42857143;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

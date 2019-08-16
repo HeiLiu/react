@@ -1,0 +1,88 @@
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 4px;
+  color: #fff;
+  background: #7fb746;
+}
+
+.component:active {
+  opacity: .85;
+}
+
+.component:disabled {
+  opacity: 0.2;
+}
+
+.square {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.small {
+  min-width: 65px;
+  min-height: 40px;
+}
+
+.large {
+  width: 200px;
+  height: 46px;
+}
+
+.loading_icon {
+  height: 1em;
+  width: 1em;
+  margin-left: 2px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-animation:loading 1s linear infinite;
+  animation:loading 1s linear infinite;
+}
+
+.default {
+  min-width: 65px;
+  min-height: 40px;
+  /* color: rgba(0, 0, 0, 0.65);
+  background: #fff; */
+}
+
+.primary {
+  min-width: 65px;
+  min-height: 40px;
+  color: rgba(0, 0, 0, 0.65);
+  background: #fff;
+}
+
+.danger {
+  color: #fff;
+  background-color: #ff4d4f;
+}
+
+@-webkit-keyframes loading {
+  0%{-webkit-transform: rotate(0deg); transform: rotate(0);}
+  100%{ -webkit-transform: rotate(360deg);transform: rotate(360deg);}
+}
+
+@keyframes loading {
+  0%{ -webkit-transform: rotate(0deg); transform: rotate(0);}
+  100%{ -webkit-transform: rotate(360deg);transform: rotate(360deg);}
+}
+
+.userClass {
+  width: 40px;
+  height: 40px;
+  background: burlywood;
+}

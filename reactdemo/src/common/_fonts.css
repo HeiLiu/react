@@ -1,0 +1,27 @@
+@font-face {
+  font-family: DINCond-Regular;
+  src: local(DINCond-Regular), local(DINCond Regular);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: DINCond-Light;
+  src: local(DINCond-Light), local(DINCond Light);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: DINPro-Regular;
+  src: local(DINPro-Regular), local(DINPro Regular);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: DINCond-Medium;
+  src: local(DINCond-Medium), local(DINCond Medium);
+  font-weight: normal;
+  font-style: normal;
+}
