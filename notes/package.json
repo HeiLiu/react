@@ -14,7 +14,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "lokijs": "^1.5.5",
     "moment": "^2.22.2",
     "semantic-ui-css": "^2.3.3"
